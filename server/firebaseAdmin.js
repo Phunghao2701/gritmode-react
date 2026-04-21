@@ -33,16 +33,19 @@ try {
   console.warn("Không thể đọc file service account. Admin SDK có thể không hoạt động hoặc đang dùng ADC.");
 }
 
-if (!admin.apps.length) {
-  if (serviceAccount) {
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    });
-  } else {
-    // Thường dùng khi deploy lên GCP hoặc để không crash nếu chưa có key
-    admin.initializeApp();
-    console.warn("Firebase Admin initialized without explicitly defined service account.");
+try {
+  if (!admin.apps.length) {
+    if (serviceAccount) {
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount)
+      });
+    } else {
+      admin.initializeApp();
+      console.warn("Firebase Admin initialized without explicitly defined service account.");
+    }
   }
+} catch (err) {
+  console.error("LỖI KHỞI TẠO FIREBASE ADMIN:", err.message);
 }
 
 export const db = admin.firestore();
