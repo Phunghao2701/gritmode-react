@@ -9,15 +9,22 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Đọc file json nếu nó được chỉ định
+// Đọc JSON file hoặc JSON string từ biến môi trường
 let serviceAccount = null;
 
 try {
-  if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
+  // Ưu tiên đọc trực tiếp từ biến môi trường trên Server (Railway/Vercel)
+  if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+    console.log("Đã tải Firebase Service Account từ biến môi trường (FIREBASE_SERVICE_ACCOUNT_JSON)");
+  } 
+  // Nếu không có biến môi trường thì đọc từ file local
+  else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
     const accountPath = path.resolve(__dirname, process.env.FIREBASE_SERVICE_ACCOUNT_PATH);
     if (fs.existsSync(accountPath)) {
       const rawData = fs.readFileSync(accountPath);
       serviceAccount = JSON.parse(rawData);
+      console.log("Đã tải Firebase Service Account từ file local.");
     } else {
       console.warn("Không tìm thấy file service account tại: ", accountPath);
     }
