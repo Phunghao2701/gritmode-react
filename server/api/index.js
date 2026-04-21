@@ -34,9 +34,14 @@ app.use('/api/orders', orderRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'API Server is running (v2)!' });
+  res.json({ status: 'ok', message: 'API Server is running on Vercel!' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
+// Chỉ listen khi chạy local, Vercel sẽ tự handle export
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+  });
+}
+
+export default app;
