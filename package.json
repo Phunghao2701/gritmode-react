@@ -1,0 +1,15 @@
+{
+  "name": "gritmode-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "firebase-admin": "^13.8.0",
+    "@emailjs/nodejs": "^5.0.2"
+  }
+}
