@@ -25,9 +25,12 @@ dist-ssr
 
 # Security & Environment variables
 .env
+.env.local
 .env.*
 *firebase-adminsdk*.json
 *serviceAccountKey*.json
 
-# Server dependencies
+# Server and Client dependencies
 server/node_modules
+client/node_modules
+

@@ -40,10 +40,10 @@ export default function Checkout() {
       email: formData.get("email"),
       address: formData.get("address"),
     };
-
+    const API_URL = import.meta.env.VITE_API_URL;
     try {
       // 1. GỌI LÊN API SERVER (Node.js)
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
