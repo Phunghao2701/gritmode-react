@@ -40,6 +40,7 @@ try {
         credential: admin.credential.cert(serviceAccount)
       });
     } else {
+      // Thường dùng khi deploy lên GCP hoặc để không crash nếu chưa có key
       admin.initializeApp();
       console.warn("Firebase Admin initialized without explicitly defined service account.");
     }
